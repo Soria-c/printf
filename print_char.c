@@ -9,7 +9,7 @@ void print_char(const char *format, char *f_s, int sz, va_list args, int num_opt
 		f_s[copy] = format[z + copy];
 	f_s[copy] = va_arg(args, int);
 	j = copy + 1;
-	for (; copy + 1 < str_len(f_s); copy++)
+	for (; format[copy + z + num_opt + 1] != '\0'; copy++)
 		f_s[copy + 1] = format[copy + z + num_opt + 1];
 	f_s[copy + 1] = '\0';
 	f_check = f_s;
