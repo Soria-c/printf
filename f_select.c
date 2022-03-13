@@ -13,6 +13,9 @@ int f_select(const char *format, char *fs, char *s, int sz, va_list args, int z)
 		case 'c':
 			print_char(format, fs, sz, args, num_opt, z);
 			break;
+		case 'd':
+			print_digit(format, fs, sz, args, num_opt, z);
+			break;
 	}
 	return (0);
 }
