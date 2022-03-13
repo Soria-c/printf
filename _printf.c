@@ -12,7 +12,10 @@ int _printf(const char *format, ...)
 	for (i = 0; *f_check != '%' && *f_check != 0; i++, f_check++)
 		;
 	if (i == lenght)
+	{
 		write(1, format, lenght);
+		return (0);
+	}
 	else
 	{
 		init = malloc(lenght + 1);
