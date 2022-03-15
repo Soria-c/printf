@@ -14,44 +14,63 @@
 
 int f_sel(const char *format, char *fs, char *s, int sz, va_list args, int z)
 {
-	int op, i, of = 2;
-	char *ff;
+	int op, r;
 
-	ff = (char *)format;
 	if (*s == '\0')
 		return (0);
-	for (op = 0; s[op] < 'a'; op++)
-		continue;
-	if (s[1] == '%')
-		op = 1;
+	for (op = 0; s[op + 1] < '!' && s[op + 1] != '\0'; op++)
+		;
+	if (!s[op + 1] || ((s[op + 1] > 47 && s[op + 1] < 58) && !s[op + 2]))
+	{
+		r = check(fs, s, &op, sz);
+		if (r == -1)
+			return (-1);
+	}
+	op++;
 	switch (s[op])
 	{
 		case 'c':
-			print_c(format, fs, sz, args, op, z);
+			r = print_c(format, fs, sz, args, op, z);
 			break;
 		case 'd':
-			print_d(format, fs, sz, args, op, z);
-			break;
 		case 'i':
-			print_d(format, fs, sz, args, op, z);
+			r = print_d(format, fs, sz, args, op, z);
 			break;
 		case '%':
-			print_p(format, fs, sz, args, op, z);
+			r = print_p(format, fs, sz, args, op, z);
 			break;
 		case 's':
-			print_s(format, fs, sz, args, op, z);
+			r = print_s(format, fs, sz, args, op, z);
 			break;
 		default:
-			if (format[0] == '%')
-				of = 1;
-			if (str_len(ff) == 2)
-				return (2);
-			fs = fs + op + of;
-			z = z + op + of;
-			s = fs;
-			for (i = 0; *s != '%' && *s != '\0'; i++, s++)
-				continue;
-			f_sel(format, fs, s, i, args, z);
+			print_v(format, fs, sz, args, op, z);
+	}
+	if (r == -1)
+		return (-1);
+	return (0);
+}
+/**
+ * check - checks special case of %
+ * @fs: buffer
+ * @s: address of first incidence of % in fs
+ * @op: pointer to op
+ * @sz: number of bytes before %
+ * Return: -1 if special case exists, 0 if not
+ */
+int check(char *fs, char *s, int *op, int sz)
+{
+	for (*op = 0; s[*op + 1] < '!' && s[*op + 1] != '\0'; *op = *op + 1)
+		;
+	if (s[*op + 1] == '\0')
+	{
+		fs[sz] = '\0';
+		return (-1);
+	}
+	if ((s[*op + 1] > 47 && s[*op + 1] < 58) && (!s[*op + 2]))
+	{
+		fs[sz] = '\0';
+		return (-1);
 	}
 	return (0);
 }
+
