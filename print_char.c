@@ -14,15 +14,22 @@
 
 int print_c(const char *format, char *f, int sz, va_list args, int op, int z, int w)
 {
-	int copy, i, j, r;
+	int copy, i, j, r, fl;
 	char *f_check;
+	va_list args2;
 
-	j = r = 0;
+	j = r = fl = 0;
+	va_copy(args2, args);
 	for (copy = 0; copy < sz; copy++)
 		f[copy] = format[z + copy];
-	f[copy] = va_arg(args, int);
-	if (f[copy] == '\0')
-		f[copy] = 1;
+	if (va_arg(args2, int))
+		f[copy] = va_arg(args, int);
+	else
+	{
+		fl = 3;
+		va_arg(args, int);
+		f--;
+	}
 	j = copy + 1;
 	for (; format[copy + z + op + 1] != '\0'; copy++)
 		f[copy + 1] = format[copy + z + op + 1];
@@ -33,6 +40,8 @@ int print_c(const char *format, char *f, int sz, va_list args, int op, int z, in
 		continue;
 	z = z + sz + op + 1;
 	r = f_sel(format, f, f_check, i, args, z, w);
+	if (fl == 3)
+		return (3);
 	if (r == -1)
 		return (r);
 	return (r);
