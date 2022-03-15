@@ -9,7 +9,7 @@
  * @op: operation number
  * @z: offset
  *
- * Return: 0 if f_sel is SUCCESS and 1 otherwise.
+ * Return: -1 is special in f_sel is triggered, 0 otherwise.
  */
 
 int print_d(const char *format, char *f, int sz, va_list args, int op, int z)
@@ -33,7 +33,7 @@ int print_d(const char *format, char *f, int sz, va_list args, int op, int z)
 		continue;
 	z = z + sz + op + 1;
 	r = f_sel(format, f, f_check, i, args, z);
-	if (r == 1)
+	if (r == -1)
 		return (r);
 	return (r);
 }
