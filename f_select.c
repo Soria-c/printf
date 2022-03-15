@@ -15,23 +15,24 @@
 int f_sel(const char *format, char *fs, char *s, int sz, va_list args, int z)
 {
 	int op, i, of = 2;
-	char *ff;
+	char *ff = (char *)format;
 
-	ff = (char *)format;
 	if (*s == '\0')
 		return (0);
 	for (op = 0; s[op] < 'a'; op++)
-		continue;
-	if (s[1] == '%')
-		op = 1;
+	{
+		if (s[op + 1] == '%')
+		{
+			op++;
+			break;
+		}
+	}
 	switch (s[op])
 	{
 		case 'c':
 			print_c(format, fs, sz, args, op, z);
 			break;
 		case 'd':
-			print_d(format, fs, sz, args, op, z);
-			break;
 		case 'i':
 			print_d(format, fs, sz, args, op, z);
 			break;
@@ -46,9 +47,8 @@ int f_sel(const char *format, char *fs, char *s, int sz, va_list args, int z)
 				of = 1;
 			if (str_len(ff) == 2)
 				return (2);
-			fs = fs + op + of;
+			s = fs = fs + op + of;
 			z = z + op + of;
-			s = fs;
 			for (i = 0; *s != '%' && *s != '\0'; i++, s++)
 				continue;
 			f_sel(format, fs, s, i, args, z);
