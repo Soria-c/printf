@@ -51,7 +51,7 @@ int f_sel(const char *format, char *fs, char *s, int sz, va_list args, int z, in
 	}
 	if (r == -1)
 		return (-1);
-	return (0);
+	return (r);
 }
 /**
  * check - checks special case of %
