@@ -14,9 +14,12 @@
 
 int f_sel(const char *format, char *fs, char *s, int sz, va_list args, int z)
 {
-	int op, r;
+	int op, i, of = 2;
+	char *ff;
 
-	r = 0;
+	ff = (char *)format;
+	if (*s == '\0')
+		return (0);
 	for (op = 0; s[op] < 'a'; op++)
 		continue;
 	if (s[1] == '%')
@@ -24,28 +27,31 @@ int f_sel(const char *format, char *fs, char *s, int sz, va_list args, int z)
 	switch (s[op])
 	{
 		case 'c':
-			r = print_c(format, fs, sz, args, op, z);
+			print_c(format, fs, sz, args, op, z);
 			break;
 		case 'd':
-			r = print_d(format, fs, sz, args, op, z);
+			print_d(format, fs, sz, args, op, z);
 			break;
 		case 'i':
-			r = print_d(format, fs, sz, args, op, z);
+			print_d(format, fs, sz, args, op, z);
 			break;
 		case '%':
-			r = print_p(format, fs, sz, args, op, z);
+			print_p(format, fs, sz, args, op, z);
 			break;
 		case 's':
-			r = print_s(format, fs, sz, args, op, z);
+			print_s(format, fs, sz, args, op, z);
 			break;
 		default:
-			if (*s == '\0')
-				return (0);
-			return (1);
-	}
-	if (r == 1)
-	{
-		return (1);
+			if (format[0] == '%')
+				of = 1;
+			if (str_len(ff) == 2)
+				return (2);
+			fs = fs + op + of;
+			z = z + op + of;
+			s = fs;
+			for (i = 0; *s != '%' && *s != '\0'; i++, s++)
+				continue;
+			f_sel(format, fs, s, i, args, z);
 	}
 	return (0);
 }
