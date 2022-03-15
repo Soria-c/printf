@@ -12,7 +12,7 @@
  * Return: 0 if f_sel is SUCCESS and 1 otherwise.
  */
 
-int f_sel(const char *format, char *fs, char *s, int sz, va_list args, int z)
+int f_sel(const char *format, char *fs, char *s, int sz, va_list args, int z, int w)
 {
 	int op, r;
 
@@ -20,30 +20,34 @@ int f_sel(const char *format, char *fs, char *s, int sz, va_list args, int z)
 		return (0);
 	for (op = 0; s[op + 1] < '!' && s[op + 1] != '\0'; op++)
 		;
+	if (w == 1)
+		w = 2;
 	if (!s[op + 1] || ((s[op + 1] > 47 && s[op + 1] < 58) && !s[op + 2]))
 	{
+		if (w == 2)
+			return (0);
 		r = check(fs, s, &op, sz);
 		if (r == -1)
 			return (-1);
-	}
+	}	
 	op++;
 	switch (s[op])
 	{
 		case 'c':
-			r = print_c(format, fs, sz, args, op, z);
+			r = print_c(format, fs, sz, args, op, z, w);
 			break;
 		case 'd':
 		case 'i':
-			r = print_d(format, fs, sz, args, op, z);
+			r = print_d(format, fs, sz, args, op, z, w);
 			break;
 		case '%':
-			r = print_p(format, fs, sz, args, op, z);
+			r = print_p(format, fs, sz, args, op, z, w);
 			break;
 		case 's':
-			r = print_s(format, fs, sz, args, op, z);
+			r = print_s(format, fs, sz, args, op, z, w);
 			break;
 		default:
-			print_v(format, fs, sz, args, op, z);
+			r = print_v(format, fs, sz, args, op, z, w);
 	}
 	if (r == -1)
 		return (-1);
