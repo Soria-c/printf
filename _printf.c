@@ -1,5 +1,34 @@
 #include "main.h"
+#include <stdio.h>
 
+int fs_init(char *s, va_list args)
+{
+	int i, j;
+	char *s2;
+	va_list args3;
+	
+	va_copy(args3, args);
+
+	s2 = s;
+	j = 0;
+	for (i = 0; s2[i] != '\0'; i++)
+	{
+		if (s2[i] == '%')
+		{
+			if (s2[i + 1] == 'c')
+			{
+
+				if (va_arg(args3, int) == '\0')
+					j++;
+			}
+			else if (s2[i + 1] == 'd' || s2[i + 1] == 'i')
+				va_arg(args3, int);
+			else if (s2[i + 1] == 's')
+				va_arg(args3, char *);
+		}
+	}
+	return (j);
+}
 /**
  * _printf - prints a formatted string
  * @format: imput string
@@ -11,13 +40,14 @@ int _printf(const char *format, ...)
 {
 	va_list args;
 	char *f_check, init[2048];
-	int i, lenght, bytes, s, k;
+	int i, lenght, bytes, s, k, total;
 
 	if (!format)
 		return (-1);
 	f_check = (char *)format;
 	lenght = str_len(f_check);
 	va_start(args, format);
+	total = fs_init(f_check, args);
 	for (i = 0; *f_check != '%' && *f_check != 0; i++, f_check++)
 		continue;
 	if (lenght == 1 && format[0] == '%')
@@ -37,6 +67,8 @@ int _printf(const char *format, ...)
 	bytes = str_len(init);
 	write(1, init, bytes);
 	va_end(args);
+	if (s == 3)
+		return (bytes + total);
 	if (s == -1)
 		return (-1);
 	return (bytes);
