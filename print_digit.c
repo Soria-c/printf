@@ -9,10 +9,10 @@
  * @op: operation number
  * @z: offset
  *
- * Return: -1 is special in f_sel is triggered, 0 otherwise.
+ * Return: -1 is special case in f_sel is triggered, 0 otherwise.
  */
 
-int print_d(const char *format, char *f, int sz, va_list args, int op, int z)
+int print_d(const char *format, char *f, int sz, va_list args, int op, int z, int w)
 {
 	int copy, i, j, k, r;
 	char *f_check, string[20];
@@ -32,7 +32,7 @@ int print_d(const char *format, char *f, int sz, va_list args, int op, int z)
 	for (i = 0; *f_check != '%' && *f_check != 0; i++, f_check++)
 		continue;
 	z = z + sz + op + 1;
-	r = f_sel(format, f, f_check, i, args, z);
+	r = f_sel(format, f, f_check, i, args, z, w);
 	if (r == -1)
 		return (r);
 	return (r);
