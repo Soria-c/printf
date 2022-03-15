@@ -31,8 +31,6 @@ int _printf(const char *format, ...)
 	{
 		for (k = 0; k < lenght; k++)
 			init[k] = format[k];
-		for (; k < 1024 - lenght; k++)
-			init[k] = 'e';
 		init[k] = '\0';
 		s = f_sel(format, init, f_check, i, args, 0);
 	}
