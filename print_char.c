@@ -21,6 +21,8 @@ int print_c(const char *format, char *f, int sz, va_list args, int op, int z)
 	for (copy = 0; copy < sz; copy++)
 		f[copy] = format[z + copy];
 	f[copy] = va_arg(args, int);
+	if (f[copy] == '\0')
+		f[copy] = 1;
 	j = copy + 1;
 	for (; format[copy + z + op + 1] != '\0'; copy++)
 		f[copy + 1] = format[copy + z + op + 1];
