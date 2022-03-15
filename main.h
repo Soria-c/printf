@@ -13,6 +13,6 @@ int print_d(const char *format, char *f, int sz, va_list args, int op, int z);
 int print_p(const char *format, char *f, int sz, va_list args, int op, int z);
 int print_s(const char *format, char *f, int sz, va_list args, int op, int z);
 void str_rev(char *s);
-char *to_string(int n);
+void to_string(char *s, int n);
 
 #endif /*MAIN_H*/
