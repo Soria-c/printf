@@ -7,18 +7,15 @@
  * Return: address of string
  */
 
-char *to_string(int n)
+void to_string(char *s, int n)
 {
-	char *s;
 	int i, f = 0;
 	unsigned long t = 10, n2 = n;
 
-	s = malloc(20);
 	if (n == 0)
 	{
 		s[0] = n + '0';
 		s[1] = '\0';
-		return (s);
 	}
 	if (n < 0)
 	{
@@ -38,7 +35,6 @@ char *to_string(int n)
 	else
 		s[i] = '\0';
 	str_rev(s);
-	return (s);
 }
 
 /**
