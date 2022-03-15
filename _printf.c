@@ -41,5 +41,6 @@ int _printf(const char *format, ...)
 	}
 	bytes = str_len(init);
 	write(1, init, bytes);
+	va_end(args);
 	return (bytes);
 }
