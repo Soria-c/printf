@@ -21,6 +21,8 @@ int print_s(const char *format, char *f, int sz, va_list args, int op, int z)
 	for (copy = 0; copy < sz; copy++)
 		f[copy] = format[z + copy];
 	string = va_arg(args, char *);
+	if (string == NULL)
+		string = "(null)";
 	for (k = 0; string[k] != '\0'; k++)
 		f[copy + k] = string[k];
 	j = copy + k;
