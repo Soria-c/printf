@@ -10,7 +10,7 @@
 int _printf(const char *format, ...)
 {
 	va_list args;
-	char *f_check, init[1024];
+	char *f_check, init[1000];
 	int i, lenght, bytes, s, k;
 
 	if (!format)
@@ -34,13 +34,10 @@ int _printf(const char *format, ...)
 		init[k] = '\0';
 		s = f_sel(format, init, f_check, i, args, 0);
 	}
-	if (s == 2)
-	{
-		write(1, format, lenght);
-		return (lenght);
-	}
 	bytes = str_len(init);
 	write(1, init, bytes);
 	va_end(args);
+	if (s == -1)
+		return (-1);
 	return (bytes);
 }
