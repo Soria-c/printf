@@ -16,6 +16,7 @@ void to_string(char *s, int n)
 	{
 		s[0] = n + '0';
 		s[1] = '\0';
+		return;
 	}
 	if (n < 0)
 	{
