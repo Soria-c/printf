@@ -15,16 +15,15 @@
 int print_d(const char *format, char *f, int sz, va_list args, int op, int z)
 {
 	int copy, i, j, k, r;
-	char *f_check, *string;
+	char *f_check, string[20];
 
 	r = 0;
 	for (copy = 0; copy < sz; copy++)
 		f[copy] = format[z + copy];
-	string = to_string(va_arg(args, int));
+	to_string(string, va_arg(args, int));
 	for (k = 0; string[k] != '\0'; k++)
 		f[copy + k] = string[k];
 	j = copy + k;
-	free(string);
 	for (; format[copy + z + op + 1] != '\0'; copy++)
 		f[copy + k] = format[copy + z + op + 1];
 	f[copy + k] = '\0';
