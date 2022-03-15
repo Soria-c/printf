@@ -15,5 +15,6 @@ int print_v(const char *format, char *f, int sz, va_list args, int op, int z, in
 void str_rev(char *s);
 void to_string(char *s, int n);
 int check(char *fs, char *s, int *op, int sz);
+int fs_init(char *s, va_list args);
 
 #endif /*MAIN_H*/
