@@ -26,6 +26,7 @@ int fs_init(char *s, va_list args)
 				va_arg(args3, char *);
 		}
 	}
+	va_end(args3);
 	return (j);
 }
 /**
@@ -61,10 +62,10 @@ int _printf(const char *format, ...)
 			init[k] = format[k];
 		init[k] = '\0';
 		s = f_sel(format, init, f_check, i, args, 0, 0);
+		va_end(args);
 	}
 	bytes = str_len(init);
 	write(1, init, bytes);
-	va_end(args);
 	if (s == 3)
 		return (bytes + total);
 	if (s == -1)
