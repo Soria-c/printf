@@ -74,9 +74,12 @@ int _printf(const char *format, ...)
 		va_end(args);
 	}
 	bytes = str_len(init);
-	write(1, init, bytes);
 	if (s == 3)
+	{
+		write(1, init, bytes + total);
 		return (bytes + total);
+	}
+	write(1, init, bytes);
 	if (s == -1)
 		return (-1);
 	return (bytes);
