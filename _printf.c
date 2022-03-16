@@ -39,7 +39,7 @@ int fs_init(char *s, va_list args)
 int _printf(const char *format, ...)
 {
 	va_list args;
-	char *f_check, init[2048];
+	char *f_check, init[1024];
 	int i, lenght, bytes, s, k, total;
 
 	if (!format)
