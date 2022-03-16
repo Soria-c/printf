@@ -1,5 +1,4 @@
 #include "main.h"
-#include <stdio.h>
 
 int fs_init(char *s, va_list args)
 {
@@ -50,11 +49,10 @@ int _printf(const char *format, ...)
 	total = fs_init(f_check, args);
 	for (i = 0; *f_check != '%' && *f_check != 0; i++, f_check++)
 		continue;
-	if (lenght == 1 && format[0] == '%')
-		return (-1);
 	if (i == lenght)
 	{
 		write(1, format, lenght);
+		va_end(args);
 		return (lenght);
 	}
 	else
