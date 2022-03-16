@@ -3,8 +3,9 @@
 /**
  * to_string - transforms an integer into string
  * @n: input integer
+ * @s: address of string to store converter integer
  *
- * Return: address of string
+ * Return: void
  */
 
 void to_string(char *s, int n)
