@@ -30,6 +30,7 @@ int print_c(const char *format, char *f, int sz, va_list args, int op, int z, in
 		va_arg(args, int);
 		f--;
 	}
+	va_end(args2);
 	j = copy + 1;
 	for (; format[copy + z + op + 1] != '\0'; copy++)
 		f[copy + 1] = format[copy + z + op + 1];
