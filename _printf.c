@@ -46,7 +46,7 @@ int fs_init(char *s, va_list args)
 int _printf(const char *format, ...)
 {
 	va_list args;
-	char *f_check, init[6000];
+	char *f_check, init[2048];
 	int i, lenght, bytes, s, k, total;
 
 	if (!format)
@@ -67,19 +67,14 @@ int _printf(const char *format, ...)
 	{
 		for (k = 0; k < lenght; k++)
 			init[k] = format[k];
-		for (; k < 6000 - lenght; k++)
-			init[k] = '_';
 		init[k] = '\0';
 		s = fs(format, init, f_check, i, args, 0, 0);
 		va_end(args);
 	}
 	bytes = str_len(init);
+	write(1, init, bytes + total);
 	if (s == 3)
-	{
-		write(1, init, bytes + total);
 		return (bytes + total);
-	}
-	write(1, init, bytes);
 	if (s == -1)
 		return (-1);
 	return (bytes);
