@@ -56,6 +56,8 @@ int _printf(const char *format, ...)
 	{
 		for (k = 0; k < lenght; k++)
 			init[k] = format[k];
+		for (; k < 6000 - lenght; k++)
+			init[k] = '_';
 		init[k] = '\0';
 		s = f_sel(format, init, f_check, i, args, 0, 0);
 		va_end(args);
