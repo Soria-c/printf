@@ -1,39 +1,84 @@
 .\" Manpage for _printf.
 .\" Contact 4465@holbertonschool.com to correct errors or typos.
+.\"
 .TH man 3 "13 March 2022" "1.0" "_printf Library calls"
 .SH NAME
-_printf \- format and print data 
+.SH ""
+.B _printf \- format and print data 
+
 .SH SYNOPSIS
+.SH ""
+_printf function takes two arguments: FIRST a character point to a string called FORMAT,\
+and a variable arguments list: arg_list. _printf read the FORMAT string until find a\
+conversion specifier, which is indicated with the '%' symbol. If found, f_s() funtion\
+match the given conversion specifier with their correct functions.
+
+.SS Compile
+
+.P
+.RS
 #include "main.h"
 
-int printf(const char *restrict format, ...);
+$ gcc -Wall -Werror - Wextra -pedantic *.c
+.RE
+   
+.SS Usage
+.RS
+#include "main.h"
+
+int printf(const char *FORMAT, ...);
+.RE
 
 .SH DESCRIPTION
+.SH ""
 _printf print ARGUMENT(s) according to FORMAT, or execute according to OPTION.
 
-The format string is composed of zero or more directives: ordinary characters (not %), which are copied unchanged to the output stream; and conversion specifications, each of which results in fetching zero or more subsequent arguments.  Each conversion specification is introduced by the character %, and ends with a conversion specifier.
+The format string is composed of zero or more directives: ordinary characters (not %),\
+which are copied unchanged to the output stream; and conversion specifications, each\
+of which results in fetching zero or more subsequent arguments.  Each conversion\
+specification is introduced by the character %, and ends with a conversion specifier.
 
 The overall syntax of a conversion specification is:
 
 %[$][flags][.precision][length modifier]conversion
 
 .SH OPTIONS
-Every format specification starts with a percent sign and ends with a letter. This cases are in _printf.
+.SH ""
 
-%%	print a single %\n
+.RS
+Every format specification starts with a percent sign '%' and ends with a letter. This\
+cases are in _printf.
 
-%c	print a character\n
+.IT
+.B %	
+- print a single %
 
-%s	print a string\n
+.IT
+.B c
+- print a character
 
-%d	print a digit\n
+.IT
+.B s
+- print a string
 
-%i	print an integer\n
- 
+.IT
+.B d
+- print a digit
+
+.IT
+.B i
+- print an integer
+
+.RE
+
+.P 
+
 .SH BUGS
+.SH ""
 No known bugs.
 
 .SH EXAMPLES
+.SH""
 To print a NAME (Yohel) and an AGE (31 years old). 
 
 #include "main.h"
@@ -44,4 +89,5 @@ char *name; name = "Yohel";
 printf ( "I am %s and I am %d years old", name, age );
 
 .SH AUTHOR
+.SH ""
 Carlos Soria (https://github.com/Soria-c) & Yohel Cruz (https://github.com/yohelce)
