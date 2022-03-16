@@ -1,11 +1,11 @@
 #include "main.h"
 
 /**
- * p_d - copies args in f
+ * pd - copies args in f
  * @format: input string
  * @f: buffer
  * @sz: number of bytes before %
- * @args: arguments list
+ * @arg: arguments list
  * @op: operation number
  * @z: offset
  * @w: flag
@@ -13,7 +13,7 @@
  * Return: -1 is special case in f_sel is triggered, 0 otherwise.
  */
 
-int p_d(const char *format, char *f, int sz, va_list args, int op, int z, int w)
+int pd(const char *format, char *f, int sz, va_list arg, int op, int z, int w)
 {
 	int copy, i, j, k, r;
 	char *f_check, string[20];
@@ -21,7 +21,7 @@ int p_d(const char *format, char *f, int sz, va_list args, int op, int z, int w)
 	r = 0;
 	for (copy = 0; copy < sz; copy++)
 		f[copy] = format[z + copy];
-	to_string(string, va_arg(args, int));
+	to_string(string, va_arg(arg, int));
 	for (k = 0; string[k] != '\0'; k++)
 		f[copy + k] = string[k];
 	j = copy + k;
@@ -33,7 +33,7 @@ int p_d(const char *format, char *f, int sz, va_list args, int op, int z, int w)
 	for (i = 0; *f_check != '%' && *f_check != 0; i++, f_check++)
 		continue;
 	z = z + sz + op + 1;
-	r = f_sel(format, f, f_check, i, args, z, w);
+	r = fs(format, f, f_check, i, arg, z, w);
 	if (r == -1)
 		return (r);
 	return (r);

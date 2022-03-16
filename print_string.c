@@ -1,19 +1,19 @@
 #include "main.h"
 
 /**
- * p_s - copies args in f
+ * ps - copies args in f
  * @format: input string
  * @f: buffer
  * @sz: number of bytes before %
- * @args: arguments list
+ * @arg: arguments list
  * @op: operation number
  * @z: offset
  * @w: flag
- * 
+ *
  * Return: -1 is special in f_sel is triggered, 0 otherwise.
  */
 
-int p_s(const char *format, char *f, int sz, va_list args, int op, int z, int w)
+int ps(const char *format, char *f, int sz, va_list arg, int op, int z, int w)
 {
 	int copy, i, j, k, r;
 	char *f_check, *string;
@@ -21,7 +21,7 @@ int p_s(const char *format, char *f, int sz, va_list args, int op, int z, int w)
 	r = 0;
 	for (copy = 0; copy < sz; copy++)
 		f[copy] = format[z + copy];
-	string = va_arg(args, char *);
+	string = va_arg(arg, char *);
 	if (string == NULL)
 		string = "(null)";
 	for (k = 0; string[k] != '\0'; k++)
@@ -35,7 +35,7 @@ int p_s(const char *format, char *f, int sz, va_list args, int op, int z, int w)
 	for (i = 0; *f_check != '%' && *f_check != 0; i++, f_check++)
 		continue;
 	z = z + sz + op + 1;
-	r = f_sel(format, f, f_check, i, args, z, w);
+	r = fs(format, f, f_check, i, arg, z, w);
 	if (r == -1)
 		return (r);
 	return (r);

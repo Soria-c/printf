@@ -1,11 +1,11 @@
 #include "main.h"
 
 /**
- * p_p - copies args in f
+ * pp - copies args in f
  * @format: input string
  * @f: buffer
  * @sz: number of bytes before %
- * @args: arguments list
+ * @arg: arguments list
  * @op: operation number
  * @z: offset
  * @w: flag
@@ -13,7 +13,7 @@
  * Return: -1 is special in f_sel is triggered, 0 otherwise.
  */
 
-int p_p(const char *format, char *f, int sz, va_list args, int op, int z, int w)
+int pp(const char *format, char *f, int sz, va_list arg, int op, int z, int w)
 {
 	int copy, i, j, r;
 	char *f_check;
@@ -31,7 +31,7 @@ int p_p(const char *format, char *f, int sz, va_list args, int op, int z, int w)
 	for (i = 0; *f_check != '%' && *f_check != 0; i++, f_check++)
 		continue;
 	z = z + sz + op + 1;
-	r = f_sel(format, f, f_check, i, args, z, w);
+	r = fs(format, f, f_check, i, arg, z, w);
 	if (r == -1)
 		return (r);
 	return (r);

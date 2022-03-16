@@ -1,19 +1,19 @@
 #include "main.h"
 
 /**
- * f_sel - selects format case
+ * fs - selects format case
  * @format: input string
  * @fs: buffer
  * @s: address of first incidence of % in fs
  * @sz: number of bytes before %
- * @args: arguments list
+ * @a: arguments list
  * @z: offset
  * @w: flag
  *
  * Return: 0 if f_sel is SUCCESS and 1 otherwise.
  */
 
-int f_sel(const char *format, char *fs, char *s, int sz, va_list args, int z, int w)
+int fs(const char *format, char *fs, char *s, int sz, va_list a, int z, int w)
 {
 	int op, r;
 
@@ -35,25 +35,26 @@ int f_sel(const char *format, char *fs, char *s, int sz, va_list args, int z, in
 	switch (s[op])
 	{
 		case 'c':
-			r = p_c(format, fs, sz, args, op, z, w);
+			r = pc(format, fs, sz, a, op, z, w);
 			break;
 		case 'd':
 		case 'i':
-			r = p_d(format, fs, sz, args, op, z, w);
+			r = pd(format, fs, sz, a, op, z, w);
 			break;
 		case '%':
-			r = p_p(format, fs, sz, args, op, z, w);
+			r = pp(format, fs, sz, a, op, z, w);
 			break;
 		case 's':
-			r = p_s(format, fs, sz, args, op, z, w);
+			r = ps(format, fs, sz, a, op, z, w);
 			break;
 		default:
-			r = print_v(format, fs, sz, args, op, z, w);
+			r = pv(format, fs, sz, a, op, z, w);
 	}
 	if (r == -1)
 		return (-1);
 	return (r);
 }
+
 /**
  * check - checks special case of %
  * @fs: buffer
@@ -62,6 +63,7 @@ int f_sel(const char *format, char *fs, char *s, int sz, va_list args, int z, in
  * @sz: number of bytes before %
  * Return: -1 if special case exists, 0 if not
  */
+
 int check(char *fs, char *s, int *op, int sz)
 {
 	for (*op = 0; s[*op + 1] < '!' && s[*op + 1] != '\0'; *op = *op + 1)

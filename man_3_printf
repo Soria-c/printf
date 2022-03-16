@@ -4,7 +4,7 @@
 .TH man 3 "13 March 2022" "1.0" "_printf Library calls"
 .SH NAME
 .SH ""
-.B _printf \- format and print data 
+.B _printf \- format and print data
 
 .SH SYNOPSIS
 .SH ""
@@ -21,7 +21,7 @@ match the given conversion specifier with their correct functions.
 
 $ gcc -Wall -Werror - Wextra -pedantic *.c
 .RE
-   
+
 .SS Usage
 .RS
 #include "main.h"
@@ -50,7 +50,7 @@ Every format specification starts with a percent sign '%' and ends with a letter
 cases are in _printf.
 
 .IT
-.B %	
+.B %
 - print a single %
 
 .IT
@@ -71,7 +71,7 @@ cases are in _printf.
 
 .RE
 
-.P 
+.P
 
 .SH BUGS
 .SH ""
@@ -79,12 +79,12 @@ No known bugs.
 
 .SH EXAMPLES
 .SH""
-To print a NAME (Yohel) and an AGE (31 years old). 
+To print a NAME (Yohel) and an AGE (31 years old).
 
 #include "main.h"
 
 int age; age = 31;
-char *name; name = "Yohel"; 
+char *name; name = "Yohel";
 \n
 printf ( "I am %s and I am %d years old", name, age );
 

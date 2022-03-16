@@ -1,11 +1,11 @@
 #include "main.h"
 
 /**
- * p_c - copies args in f
+ * pc - copies args in f
  * @format: input string
  * @f: buffer
  * @sz: number of bytes before %
- * @args: arguments list
+ * @arg: arguments list
  * @op: operation number
  * @z: offset
  * @w: flag
@@ -13,22 +13,22 @@
  * Return: -1 is special in f_sel is triggered, 0 otherwise.
  */
 
-int p_c(const char *format, char *f, int sz, va_list args, int op, int z, int w)
+int pc(const char *format, char *f, int sz, va_list arg, int op, int z, int w)
 {
 	int copy, i, j, r, fl;
 	char *f_check;
 	va_list args2;
 
 	j = r = fl = 0;
-	va_copy(args2, args);
+	va_copy(args2, arg);
 	for (copy = 0; copy < sz; copy++)
 		f[copy] = format[z + copy];
 	if (va_arg(args2, int))
-		f[copy] = va_arg(args, int);
+		f[copy] = va_arg(arg, int);
 	else
 	{
 		fl = 3;
-		va_arg(args, int);
+		va_arg(arg, int);
 		f--;
 	}
 	va_end(args2);
@@ -41,7 +41,7 @@ int p_c(const char *format, char *f, int sz, va_list args, int op, int z, int w)
 	for (i = 0; *f_check != '%' && *f_check != 0; i++, f_check++)
 		continue;
 	z = z + sz + op + 1;
-	r = f_sel(format, f, f_check, i, args, z, w);
+	r = fs(format, f, f_check, i, arg, z, w);
 	if (fl == 3)
 		return (3);
 	if (r == -1)
@@ -50,17 +50,19 @@ int p_c(const char *format, char *f, int sz, va_list args, int op, int z, int w)
 }
 
 /**
- * print_v - copies args in f
+ * pv - copies args in f
  * @format: input string
  * @f: buffer
  * @sz: number of bytes before %
- * @args: arguments list
+ * @arg: arguments list
  * @op: operation number
  * @z: offset
+ * @w: flag
  *
  * Return: -1 is special in f_sel is triggered, 0 otherwise.
  */
-int print_v(const char *format, char *f, int sz, va_list args, int op, int z, int w)
+
+int pv(const char *format, char *f, int sz, va_list arg, int op, int z, int w)
 {
 	int copy, i, j, r;
 	char *f_check;
@@ -81,6 +83,6 @@ int print_v(const char *format, char *f, int sz, va_list args, int op, int z, in
 		continue;
 	z = z + sz + op + 1;
 	w = 1;
-	f_sel(format, f, f_check, i, args, z, w);
+	fs(format, f, f_check, i, arg, z, w);
 	return (0);
 }
