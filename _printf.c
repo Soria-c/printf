@@ -50,19 +50,12 @@ int _printf(const char *format, ...)
 	total = fs_init(f_check, args);
 	for (i = 0; *f_check != '%' && *f_check != 0; i++, f_check++)
 		continue;
-	if (i == lenght)
+	for (k = 0; k < lenght; k++)
+		init[k] = format[k];
+	init[k] = '\0';
+	if (i != lenght)
 	{
-		write(1, format, lenght);
-		va_end(args);
-		return (lenght);
-	}
-	else
-	{
-		for (k = 0; k < lenght; k++)
-			init[k] = format[k];
-		init[k] = '\0';
 		s = f_sel(format, init, f_check, i, args, 0, 0);
-		va_end(args);
 	}
 	bytes = str_len(init);
 	write(1, init, bytes);
