@@ -1,18 +1,19 @@
 #include "main.h"
 
 /**
- * print_d - copies args in f
+ * p_d - copies args in f
  * @format: input string
  * @f: buffer
  * @sz: number of bytes before %
  * @args: arguments list
  * @op: operation number
  * @z: offset
+ * @w: flag
  *
  * Return: -1 is special case in f_sel is triggered, 0 otherwise.
  */
 
-int print_d(const char *format, char *f, int sz, va_list args, int op, int z, int w)
+int p_d(const char *format, char *f, int sz, va_list args, int op, int z, int w)
 {
 	int copy, i, j, k, r;
 	char *f_check, string[20];
