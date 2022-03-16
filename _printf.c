@@ -1,5 +1,4 @@
 #include "main.h"
-
 int fs_init(char *s, va_list args)
 {
 	int i, j;
@@ -7,7 +6,6 @@ int fs_init(char *s, va_list args)
 	va_list args3;
 	
 	va_copy(args3, args);
-
 	s2 = s;
 	j = 0;
 	for (i = 0; s2[i] != '\0'; i++)
@@ -16,7 +14,6 @@ int fs_init(char *s, va_list args)
 		{
 			if (s2[i + 1] == 'c')
 			{
-
 				if (va_arg(args3, int) == '\0')
 					j++;
 			}
@@ -35,7 +32,6 @@ int fs_init(char *s, va_list args)
  *
  * Return: number of bytes if is SUCCESS, -1 otherwise.
  */
-
 int _printf(const char *format, ...)
 {
 	va_list args;
@@ -50,12 +46,19 @@ int _printf(const char *format, ...)
 	total = fs_init(f_check, args);
 	for (i = 0; *f_check != '%' && *f_check != 0; i++, f_check++)
 		continue;
-	for (k = 0; k < lenght; k++)
-		init[k] = format[k];
-	init[k] = '\0';
-	if (i != lenght)
+	if (i == lenght)
 	{
+		write(1, format, lenght);
+		va_end(args);
+		return (lenght);
+	}
+	else
+	{
+		for (k = 0; k < lenght; k++)
+			init[k] = format[k];
+		init[k] = '\0';
 		s = f_sel(format, init, f_check, i, args, 0, 0);
+		va_end(args);
 	}
 	bytes = str_len(init);
 	write(1, init, bytes);
