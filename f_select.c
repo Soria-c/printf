@@ -8,6 +8,7 @@
  * @sz: number of bytes before %
  * @args: arguments list
  * @z: offset
+ * @w: flag
  *
  * Return: 0 if f_sel is SUCCESS and 1 otherwise.
  */
@@ -29,22 +30,22 @@ int f_sel(const char *format, char *fs, char *s, int sz, va_list args, int z, in
 		r = check(fs, s, &op, sz);
 		if (r == -1)
 			return (-1);
-	}	
+	}
 	op++;
 	switch (s[op])
 	{
 		case 'c':
-			r = print_c(format, fs, sz, args, op, z, w);
+			r = p_c(format, fs, sz, args, op, z, w);
 			break;
 		case 'd':
 		case 'i':
-			r = print_d(format, fs, sz, args, op, z, w);
+			r = p_d(format, fs, sz, args, op, z, w);
 			break;
 		case '%':
-			r = print_p(format, fs, sz, args, op, z, w);
+			r = p_p(format, fs, sz, args, op, z, w);
 			break;
 		case 's':
-			r = print_s(format, fs, sz, args, op, z, w);
+			r = p_s(format, fs, sz, args, op, z, w);
 			break;
 		default:
 			r = print_v(format, fs, sz, args, op, z, w);
@@ -77,4 +78,3 @@ int check(char *fs, char *s, int *op, int sz)
 	}
 	return (0);
 }
-
