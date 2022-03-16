@@ -1,10 +1,19 @@
 #include "main.h"
+
+/**
+ * fs_init - helps calculate possible size of final string when %c = NULL
+ * @s: address of format string
+ * @args: arguments
+ *
+ * Return: size of final string where there is %c = NULL.
+ */
+
 int fs_init(char *s, va_list args)
 {
 	int i, j;
 	char *s2;
 	va_list args3;
-	
+
 	va_copy(args3, args);
 	s2 = s;
 	j = 0;
@@ -26,12 +35,14 @@ int fs_init(char *s, va_list args)
 	va_end(args3);
 	return (j);
 }
+
 /**
  * _printf - prints a formatted string
  * @format: imput string
  *
  * Return: number of bytes if is SUCCESS, -1 otherwise.
  */
+
 int _printf(const char *format, ...)
 {
 	va_list args;
