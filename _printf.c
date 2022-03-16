@@ -47,7 +47,7 @@ int _printf(const char *format, ...)
 {
 	va_list args;
 	char *f_check, init[2048];
-	int i, lenght, bytes, s, k, total;
+	int i, lenght, bytes, s, total;
 
 	if (!format)
 		return (-1);
@@ -65,9 +65,6 @@ int _printf(const char *format, ...)
 	}
 	else
 	{
-		for (k = 0; k < lenght; k++)
-			init[k] = format[k];
-		init[k] = '\0';
 		s = fs(format, init, f_check, i, args, 0, 0);
 		va_end(args);
 	}
